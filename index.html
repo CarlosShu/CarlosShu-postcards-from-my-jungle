@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Slideshow</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: monospace;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .slideshow-container {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        #animal-image {
+            width: 100%;
+            max-width: 500px;
+            transition: opacity 1s ease-in-out;
+        }
+
+        #animal-text {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        
+        #animal-sound {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <img id="animal-image" src="" alt="Animal Image">
+        <div id="animal-text"></div>
+        <audio id="animal-sound" controls>
+            <source id="sound-source" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+  <script>
+    const animals = [
+        { 
+            image: 'images/animal_00.png', 
+            text: 'quack', 
+            sound: 'sounds/fictional_bird_sound_1.wav' // Replace with actual sound file if available
+        },
+        { 
+            image: 'images/animal_01.png', 
+            text: 'tweet', 
+            sound: 'sounds/fictional_bird_sound_2.wav' // Replace with actual sound file if available
+        },
+        { 
+            image: 'images/animal_02.png', 
+            text: 'hoot', 
+            sound: 'sounds/fictional_bird_sound_3.wav' // Replace with actual sound file if available
+        },
+        { 
+            image: 'images/animal_03.png', 
+            text: 'qwarch', 
+            sound: 'sounds/fictional_bird_sound_4.wav' // Replace with actual sound file if available
+        }
+    ];
+
+    let currentIndex = 0;
+
+    const animalImage = document.getElementById('animal-image');
+    const animalText = document.getElementById('animal-text');
+    const animalSound = document.getElementById('animal-sound');
+    const soundSource = document.getElementById('sound-source');
+
+    function loadAnimal(index) {
+        const animal = animals[index];
+        animalImage.src = animal.image;
+        animalText.textContent = animal.text;
+        soundSource.src = animal.sound;
+        animalSound.load();
+        animalSound.play();
+    }
+
+    function cycleAnimals() {
+        loadAnimal(currentIndex);
+        currentIndex = (currentIndex + 1) % animals.length;
+    }
+    cycleAnimals(); 
+    setInterval(cycleAnimals, 5000);  // Change animal every 5 seconds
+</script>
+        
