@@ -17,27 +17,45 @@
             height: 100vh;
             overflow: hidden;
         }
-        
         .slideshow-container {
             position: relative;
             width: 80%;
             max-width: 600px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        
         #animal-image {
             width: 100%;
-            max-width: 500px;
+            max-width: 400px;
+            height: auto;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        #animal-text {
+            font-size: 20px;
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
             transition: opacity 1s ease-in-out;
         }
 
-        #animal-text {
-            font-size: 20px;
-            margin-top: 10px;
+        /* Typewriter-like effect for text */
+        @keyframes typewriter {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
         }
-        
-        #animal-sound {
-            display: none;
+        #animal-text {
+            display: inline-block;
+            width: 0;
+            animation: typewriter 2s steps(40) 1s forwards;
         }
     </style>
 </head>
@@ -45,57 +63,111 @@
     <div class="slideshow-container">
         <img id="animal-image" src="" alt="Animal Image">
         <div id="animal-text"></div>
-        <audio id="animal-sound" controls>
+        <!-- Removed 'controls' from the audio element -->
+        <audio id="animal-sound" loop autoplay>
             <source id="sound-source" type="audio/wav">
             Your browser does not support the audio element.
         </audio>
     </div>
 
-  <script>
-    const animals = [
-        { 
-            image: 'images/animal_00.png', 
-            text: 'quack', 
-            sound: 'sounds/fictional_bird_sound_1.wav' // Replace with actual sound file if available
-        },
-        { 
-            image: 'images/animal_01.png', 
-            text: 'tweet', 
-            sound: 'sounds/fictional_bird_sound_2.wav' // Replace with actual sound file if available
-        },
-        { 
-            image: 'images/animal_02.png', 
-            text: 'hoot', 
-            sound: 'sounds/fictional_bird_sound_3.wav' // Replace with actual sound file if available
-        },
-        { 
-            image: 'images/animal_03.png', 
-            text: 'qwarch', 
-            sound: 'sounds/fictional_bird_sound_4.wav' // Replace with actual sound file if available
+    <script>
+const animals = [
+    { image: 'images/animal_00.png', text: 'Koo-shi-kaa-hoo', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_01.png', text: 'Taa-chir-prii', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_02.png', text: 'Roo-skoo-mik', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_03.png', text: 'Hoo-trii-kaa', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_04.png', text: 'Skwee-koo-hoo', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_05.png', text: 'Tri-haa-chur', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_06.png', text: 'Pik-chir-hoot', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_07.png', text: 'Hoo-paa-skwee', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_08.png', text: 'Chir-skaa-trii', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_09.png', text: 'Koo-hoot-prii', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_10.png', text: 'Sree-skoo-kaa', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_11.png', text: 'Chir-hoo-trii', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_12.png', text: 'Mik-hoo-paa', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_13.png', text: 'Kaa-skoo-hoot', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_14.png', text: 'Hoot-prii-trii', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_15.png', text: 'Skaa-chur-koo', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_16.png', text: 'Koo-shi-kaa-hoo', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_17.png', text: 'Taa-chir-prii', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_18.png', text: 'Roo-skoo-mik', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_19.png', text: 'Hoo-trii-kaa', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_20.png', text: 'Skwee-koo-hoo', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_21.png', text: 'Tri-haa-chur', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_22.png', text: 'Pik-chir-hoot', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_23.png', text: 'Hoo-paa-skwee', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_24.png', text: 'Chir-skaa-trii', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_25.png', text: 'Koo-hoot-prii', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_26.png', text: 'Sree-skoo-kaa', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_27.png', text: 'Chir-hoo-trii', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_28.png', text: 'Mik-hoo-paa', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_29.png', text: 'Kaa-skoo-hoot', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_30.png', text: 'Hoot-prii-trii', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_31.png', text: 'Skaa-chur-koo', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_32.png', text: 'Koo-shi-kaa-hoo', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_33.png', text: 'Taa-chir-prii', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_34.png', text: 'Roo-skoo-mik', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_35.png', text: 'Hoo-trii-kaa', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_36.png', text: 'Skwee-koo-hoo', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_37.png', text: 'Tri-haa-chur', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_38.png', text: 'Pik-chir-hoot', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_39.png', text: 'Hoo-paa-skwee', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_40.png', text: 'Chir-skaa-trii', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_41.png', text: 'Koo-hoot-prii', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_42.png', text: 'Sree-skoo-kaa', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_43.png', text: 'Chir-hoo-trii', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_44.png', text: 'Mik-hoo-paa', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_45.png', text: 'Kaa-skoo-hoot', sound: 'sounds/fictional_bird_sound_2.wav' },
+    { image: 'images/animal_46.png', text: 'Hoot-prii-trii', sound: 'sounds/fictional_bird_sound_3.wav' },
+    { image: 'images/animal_47.png', text: 'Skaa-chur-koo', sound: 'sounds/fictional_bird_sound_4.wav' },
+    { image: 'images/animal_48.png', text: 'Koo-shi-kaa-hoo', sound: 'sounds/fictional_bird_sound_1.wav' },
+    { image: 'images/animal_49.png', text: 'Taa-chir-prii', sound: 'sounds/fictional_bird_sound_2.wav' }
+];
+
+        let currentIndex = 0;
+        const animalImage = document.getElementById('animal-image');
+        const animalText = document.getElementById('animal-text');
+        const animalSound = document.getElementById('animal-sound');
+        const soundSource = document.getElementById('sound-source');
+
+        function fadeInText() {
+            animalText.style.opacity = '1'; // Fade in the text
         }
-    ];
 
-    let currentIndex = 0;
+        function playNewSound(src) {
+            const newSound = new Audio(src); // Create a new Audio element
+            newSound.loop = true; // Loop the sound
+            newSound.volume = 0.5; // Set the volume to half (50%)
+            newSound.play(); // Play the sound immediately
+        }
 
-    const animalImage = document.getElementById('animal-image');
-    const animalText = document.getElementById('animal-text');
-    const animalSound = document.getElementById('animal-sound');
-    const soundSource = document.getElementById('sound-source');
+        function loadAnimal(index) {
+            const animal = animals[index];
+            animalImage.style.opacity = '0'; // Start with image hidden
+            animalText.style.opacity = '0'; // Start with text hidden
 
-    function loadAnimal(index) {
-        const animal = animals[index];
-        animalImage.src = animal.image;
-        animalText.textContent = animal.text;
-        soundSource.src = animal.sound;
-        animalSound.load();
-        animalSound.play();
-    }
+            // Wait for previous transitions to finish before updating
+            setTimeout(() => {
+                // Change the image and fade it in
+                animalImage.src = animal.image;
+                animalImage.style.opacity = '1';
 
-    function cycleAnimals() {
-        loadAnimal(currentIndex);
-        currentIndex = (currentIndex + 1) % animals.length;
-    }
-    cycleAnimals(); 
-    setInterval(cycleAnimals, 5000);  // Change animal every 5 seconds
-</script>
-        
+                // Change the text and fade it in
+                animalText.textContent = animal.text;
+                fadeInText();
+
+                // Play the new sound without stopping previous ones
+                playNewSound(animal.sound);
+            }, 1000); // Wait 1 second before showing the new image
+        }
+
+        function cycleAnimals() {
+            loadAnimal(currentIndex);
+            currentIndex = (currentIndex + 1) % animals.length;
+        }
+
+        cycleAnimals();
+        setInterval(cycleAnimals, 5000); // Change animal every 5 seconds
+    </script>
+</body>
+</html>
